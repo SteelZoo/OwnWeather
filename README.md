@@ -5,5 +5,5 @@
 
 # 기획
 
-## 피그마
-https://www.figma.com/file/SaBmOwzqboOhKdFHXJBZYr/%EB%82%B4%EB%82%A0%EC%94%A8?node-id=0%3A1&t=gIVvaswUrAC5jRpA-1
+## [피그마](https://www.figma.com/file/SaBmOwzqboOhKdFHXJBZYr/%EB%82%B4%EB%82%A0%EC%94%A8?node-id=0%3A1&t=gIVvaswUrAC5jRpA-1)
+
