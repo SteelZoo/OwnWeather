@@ -1,7 +1,8 @@
-package com.steelzoo.ownweather
+package com.steelzoo.ownweather.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.steelzoo.ownweather.R
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
