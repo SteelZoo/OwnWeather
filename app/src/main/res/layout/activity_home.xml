@@ -4,15 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:background="@color/white"
+    tools:context=".ui.home.HomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_weathercard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:layout_constraintDimensionRatio="0.8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_weathercard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_weatherhate"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/icon_weather_hate_ripple"
+                app:layout_constraintBottom_toBottomOf="@id/layout_weathercard"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_weatherlike"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/icon_weather_like_ripple"
+                app:layout_constraintBottom_toBottomOf="@id/layout_weathercard"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
