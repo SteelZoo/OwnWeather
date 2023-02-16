@@ -5,9 +5,9 @@ import com.steelzoo.ownweather.domain.repositoryinterface.WeatherDataRepository
 import javax.inject.Inject
 
 class WeatherDataRepositoryImpl @Inject constructor(
-
+    val remoteSource: WeatherDataRemoteSource
 ) : WeatherDataRepository {
-    override fun getNowWeather(): WeatherData {
-        TODO("Not yet implemented")
+    override suspend fun getNowWeather(): String {
+        return remoteSource.getNowWeatherData()
     }
 }
