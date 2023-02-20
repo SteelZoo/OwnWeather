@@ -16,7 +16,7 @@ class HomeViewModel @Inject constructor(
 
     fun getNowWeather(){
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("WEATHER_DATA_TEST", weatherDataRepository.getNowWeather())
+            Log.d("WEATHER_DATA_TEST", weatherDataRepository.getNowWeather().toString())
         }
     }
 
