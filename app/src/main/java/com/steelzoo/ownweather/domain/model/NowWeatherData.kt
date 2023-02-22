@@ -1,6 +1,6 @@
 package com.steelzoo.ownweather.domain.model
 
-data class WeatherData(
+data class NowWeatherData(
     val temperature: Double,
     val oneHourPrecipitation: Double,
     val eastWestWindComponent: Double,
