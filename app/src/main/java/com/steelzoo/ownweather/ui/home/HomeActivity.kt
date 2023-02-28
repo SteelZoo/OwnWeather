@@ -1,7 +1,6 @@
 package com.steelzoo.ownweather.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.steelzoo.ownweather.databinding.ActivityHomeBinding
@@ -18,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnWeatherlike.setOnClickListener {
+        binding.btnWeatherLike.setOnClickListener {
             homeViewModel.getNowWeather()
         }
     }

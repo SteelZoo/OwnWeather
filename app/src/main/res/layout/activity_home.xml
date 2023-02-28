@@ -27,22 +27,22 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_weatherhate"
+                android:id="@+id/btn_weather_hate"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/icon_weather_hate_ripple"
+                android:background="@drawable/icon_hate_ripple"
                 app:layout_constraintBottom_toBottomOf="@id/layout_weathercard"
                 app:layout_constraintStart_toStartOf="@id/layout_weathercard" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_weatherlike"
+                android:id="@+id/btn_weather_like"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/icon_weather_like_ripple"
+                android:background="@drawable/icon_like_ripple"
                 app:layout_constraintBottom_toBottomOf="@id/layout_weathercard"
                 app:layout_constraintEnd_toEndOf="@id/layout_weathercard" />
 
