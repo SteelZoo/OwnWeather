@@ -1,9 +1,9 @@
 package com.steelzoo.ownweather.data
 
-import com.steelzoo.ownweather.data.weather.model.WeatherData
+import com.steelzoo.ownweather.data.weather.model.NowWeatherDto
 import com.steelzoo.ownweather.domain.model.NowWeatherData
 
-fun WeatherData.toNowWeatherData(): NowWeatherData {
+fun NowWeatherDto.toNowWeatherData(): NowWeatherData {
 
     var temperature = 0.0
     var oneHourPrecipitation = 0.0

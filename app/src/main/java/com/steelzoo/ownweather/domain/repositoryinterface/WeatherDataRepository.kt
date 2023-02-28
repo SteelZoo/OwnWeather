@@ -1,7 +1,7 @@
 package com.steelzoo.ownweather.domain.repositoryinterface
 
-import com.steelzoo.ownweather.data.weather.model.WeatherData
+import com.steelzoo.ownweather.domain.model.NowWeatherData
 
 interface WeatherDataRepository {
-    suspend fun getNowWeather(): WeatherData
+    suspend fun getNowWeather(): NowWeatherData?
 }
