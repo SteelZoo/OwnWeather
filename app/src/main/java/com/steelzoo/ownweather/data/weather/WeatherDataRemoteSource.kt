@@ -11,8 +11,8 @@ class WeatherDataRemoteSource @Inject constructor(
 ) {
     suspend fun getNowWeatherData(): NowWeatherDto {
         return goRetrofit.create(WeatherService::class.java).getNowWeather(
-            "20230222",
-            "1800",
+            "20230303",
+            "0400",
             55,
             124
         )

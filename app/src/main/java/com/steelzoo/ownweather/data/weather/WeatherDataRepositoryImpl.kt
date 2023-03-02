@@ -8,7 +8,7 @@ import javax.inject.Inject
 class WeatherDataRepositoryImpl @Inject constructor(
     val remoteSource: WeatherDataRemoteSource
 ) : WeatherDataRepository {
-    override suspend fun getNowWeather(): NowWeatherData? {
+    override suspend fun getNowWeatherData(): NowWeatherData? {
         //TODO
         val weatherData = remoteSource.getNowWeatherData()
         if (weatherData.response.body == null) {
