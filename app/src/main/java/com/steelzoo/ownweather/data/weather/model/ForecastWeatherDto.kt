@@ -2,30 +2,32 @@ package com.steelzoo.ownweather.data.weather.model
 
 import com.google.gson.annotations.SerializedName
 
-data class NowWeatherDtoItem(
+data class ForecastWeatherDtoItem(
     val baseDate: String,
     val baseTime: String,
     val category: String,
     val nx: Int,
     val ny: Int,
-    val obsrValue: Double,
+    val fcstDate: String,
+    val fcstTime: String,
+    val fcstValue: String,
 )
 
-data class NowWeatherDtoItemList(
+data class ForecastWeatherDtoItemList(
     @SerializedName("item")
     val weatherItemList: List<NowWeatherDtoItem>,
 )
 
-data class NowWeatherDtoBody(
+data class ForecastWeatherDtoBody(
     @SerializedName("items")
     val weatherItems: NowWeatherDtoItemList,
 )
 
-data class NowWeatherDtoResponse(
+data class ForecastWeatherDtoResponse(
     val header: WeatherDtoHeader,
     val body: NowWeatherDtoBody,
 )
 
-data class NowWeatherDto(
+data class ForecastWeatherDto(
     val response: NowWeatherDtoResponse,
 )
