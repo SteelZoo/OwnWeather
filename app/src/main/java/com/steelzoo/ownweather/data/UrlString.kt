@@ -6,4 +6,4 @@ const val WEATHER_URL = "/1360000/VilageFcstInfoService_2.0"
 
 const val WEATHER_NOW_URL = "/getUltraSrtNcst"
 
-const val WEATHER_VERTSHORT_URL = "/getUltraSrtFcst"
+const val WEATHER_ULTRASHORT_URL = "/getUltraSrtFcst"
