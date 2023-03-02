@@ -26,6 +26,130 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_weather_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/iv_weather_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/icon_weather_sunny"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                app:layout_constraintTop_toTopOf="@id/layout_weathercard" />
+
+            <TextView
+                android:id="@+id/tv_weather_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/iv_weather_image"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                tools:text="30.5" />
+
+            <TextView
+                android:id="@+id/tv_weather_string_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/humidity"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="15sp"
+                android:layout_marginEnd="3dp"
+                app:layout_constraintEnd_toStartOf="@id/tv_weather_humidity"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                app:layout_constraintTop_toBottomOf="@id/iv_weather_image"
+                app:layout_constraintHorizontal_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/tv_weather_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_rain"
+                android:textSize="15sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_humidity"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                app:layout_constraintStart_toEndOf="@id/tv_weather_string_humidity"
+                tools:text="test" />
+
+
+            <TextView
+                android:id="@+id/tv_weather_string_precipitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/precipitation"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                app:layout_constraintTop_toBottomOf="@id/tv_weather_string_humidity" />
+
+            <TextView
+                android:id="@+id/tv_weather_string_precipitation_probability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/precipitation_probability"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="15sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_precipitation"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                app:layout_constraintStart_toEndOf="@id/guideline_weather_center" />
+
+            <TextView
+                android:id="@+id/tv_weather_precipitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_rain"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                app:layout_constraintTop_toBottomOf="@id/tv_weather_string_precipitation"
+                tools:ignore="InOrMmUsage"
+                tools:text="test" />
+
+            <TextView
+                android:id="@+id/tv_weather_precipitation_probability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_rain"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                app:layout_constraintStart_toStartOf="@id/guideline_weather_center"
+                app:layout_constraintTop_toBottomOf="@id/tv_weather_string_precipitation_probability"
+                tools:text="test" />
+
+            <TextView
+                android:id="@+id/tv_weather_string_finedust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/fine_dust"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/btn_weather_hate"
+                app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
+                app:layout_constraintStart_toStartOf="@id/layout_weathercard" />
+
+            <TextView
+                android:id="@+id/tv_weather_string_ultrafinedust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ultrafine_dust"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="15sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_finedust"
+                app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                app:layout_constraintStart_toEndOf="@id/guideline_weather_center" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_weather_hate"
                 android:layout_width="80dp"
