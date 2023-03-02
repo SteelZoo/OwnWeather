@@ -1,7 +1,7 @@
 package com.steelzoo.ownweather.ui.model
 
 data class WeatherDataUI(
-    val skyType: SkyType,
+    val skyState: SkyState,
     val temperature: Double,
     val humidity: Int,
     val windDirection: Double,
