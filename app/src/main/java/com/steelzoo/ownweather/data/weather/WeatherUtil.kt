@@ -1,10 +1,26 @@
 package com.steelzoo.ownweather.data.weather
 
+import android.annotation.SuppressLint
+import java.text.SimpleDateFormat
+
+@SuppressLint("SimpleDateFormat")
 object WeatherUtil {
+
+    enum class BaseMinuteType(val minute: Int) {
+        NOWCAST_BASEMINUTE(40),
+        ULTRASHORT_FORECAST_BASEMINUTE(45)
+    }
+
+    const val HOUR_TO_MILLIS = 3600000
+
+    private val baseDateFormat: SimpleDateFormat = SimpleDateFormat("yyyyMMdd")
+    private val hourDateFormat: SimpleDateFormat = SimpleDateFormat("HH00")
+    private val minuteDateFormat: SimpleDateFormat = SimpleDateFormat("00mm")
+
     /**
      * 경위도 좌표계를 기상청 XY 좌표계로 변경해주는 메소드
      */
-    fun convertLatLngToGridXY(lat: Double, lng: Double): String{
+    fun convertLatLngToGridXY(lat: Double, lng: Double): String {
         val resultString = StringBuilder()
 
         val RE = 6371.00877 // 지구 반경(km)
@@ -46,5 +62,42 @@ object WeatherUtil {
 //        rs.y = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5)
 
         return resultString.toString()
+    }
+
+    /**
+     * getBaseDate와 getBaseTime는 함수 호출 사이 시간 차를 고려해서 currentTimeMillis를 같은 값으로 넣는 것을 권장
+     * val currentTimeMillis = System.currentTimeMillis()
+     * val baseDate = WeatherUtil.getBaseDate(currentTimeMillis,~)
+     * val baseTime = WeatherUtil.getBaseTime(currentTimeMillis,~)
+     */
+    fun getBaseDate(currentTimeMillis: Long, baseMinuteType: BaseMinuteType): String {
+        val resultBaseDateString = StringBuilder()
+
+        if (getBaseTime(currentTimeMillis, baseMinuteType) == "2300"
+            && minuteDateFormat.format(currentTimeMillis) != "2300") {
+            resultBaseDateString.append(baseDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
+        } else {
+            resultBaseDateString.append(baseDateFormat.format(currentTimeMillis))
+        }
+
+        return resultBaseDateString.toString()
+    }
+
+    /**
+     * 초단기 실황 각 시간 40분
+     * 초단기 예보 각 시간 45분
+     * 단기 예보는 0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회) 각 시간 10분 후
+     */
+    fun getBaseTime(currentTimeMillis: Long, baseMinuteType: BaseMinuteType): String {
+
+        val resultBaseMinuteString = StringBuilder()
+
+        if (minuteDateFormat.format(currentTimeMillis).toInt() < baseMinuteType.minute) {
+            resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
+        } else {
+            resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis))
+        }
+
+        return resultBaseMinuteString.toString()
     }
 }
