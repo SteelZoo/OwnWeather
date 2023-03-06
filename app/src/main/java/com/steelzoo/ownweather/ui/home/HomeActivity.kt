@@ -17,8 +17,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnWeatherLike.setOnClickListener {
-            homeViewModel.getNowWeather()
-        }
+        binding.viewmodel = homeViewModel
+        binding.lifecycleOwner = this
     }
 }
