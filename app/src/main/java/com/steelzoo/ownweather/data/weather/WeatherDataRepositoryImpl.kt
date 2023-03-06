@@ -9,8 +9,13 @@ class WeatherDataRepositoryImpl @Inject constructor(
     val remoteSource: WeatherDataRemoteSource
 ) : WeatherDataRepository {
     override suspend fun getNowWeatherData(): NowWeatherData? {
-        //TODO
-        val weatherData = remoteSource.getNowWeatherData()
+        val currentTime = System.currentTimeMillis()
+        val weatherData = remoteSource.getNowWeatherData(
+            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE),
+            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE),
+            55,
+            124
+        )
         if (weatherData.response.body == null) {
             return null
         }

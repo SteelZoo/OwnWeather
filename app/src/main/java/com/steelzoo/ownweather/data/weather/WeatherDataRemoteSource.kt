@@ -9,21 +9,15 @@ import javax.inject.Inject
 class WeatherDataRemoteSource @Inject constructor(
     @GoRetrofitClient val goRetrofit: Retrofit
 ) {
-    suspend fun getNowWeatherData(): NowWeatherDto {
+    suspend fun getNowWeatherData(baseDate: String, baseTime: String, nx: Int, ny: Int): NowWeatherDto {
         return goRetrofit.create(WeatherService::class.java).getNowWeather(
-            "20230303",
-            "0400",
-            55,
-            124
+            baseDate, baseTime, nx, ny
         )
     }
 
-    suspend fun getUltraShortForecastData(): ForecastWeatherDto{
+    suspend fun getUltraShortForecastData(baseDate: String, baseTime: String, nx: Int, ny: Int): ForecastWeatherDto{
         return goRetrofit.create(WeatherService::class.java).getUltraShortForecast(
-            "20230222",
-            "1800",
-            55,
-            124
+            baseDate, baseTime, nx, ny
         )
     }
 }
