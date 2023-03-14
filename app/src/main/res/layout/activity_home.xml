@@ -46,10 +46,11 @@
                     android:id="@+id/iv_weather_image"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/icon_weather_sunny"
+                    app:drawableSrc="@{viewmodel.nowWeather.skyState.drawableImage}"
                     app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
                     app:layout_constraintStart_toStartOf="@id/layout_weathercard"
-                    app:layout_constraintTop_toTopOf="@id/layout_weathercard" />
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:src="@drawable/icon_weather_night" />
 
                 <TextView
                     android:id="@+id/tv_weather_temperature"
@@ -81,9 +82,9 @@
                     android:id="@+id/tv_weather_humidity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewmodel.nowWeather.humidity)+`%`}"
                     android:textColor="@color/blue_rain"
                     android:textSize="15sp"
-                    android:text="@{Integer.toString(viewmodel.nowWeather.humidity)}"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_humidity"
                     app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
                     app:layout_constraintStart_toEndOf="@id/tv_weather_string_humidity"

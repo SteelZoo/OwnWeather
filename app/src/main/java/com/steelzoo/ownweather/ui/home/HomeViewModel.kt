@@ -1,12 +1,12 @@
 package com.steelzoo.ownweather.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.steelzoo.ownweather.domain.repositoryinterface.WeatherDataRepository
-import com.steelzoo.ownweather.ui.model.*
+import com.steelzoo.ownweather.ui.model.WeatherDataUI
+import com.steelzoo.ownweather.ui.toWeatherDataUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,15 +28,7 @@ class HomeViewModel @Inject constructor(
     private fun getNowWeather(){
         viewModelScope.launch(Dispatchers.IO) {
             weatherDataRepository.getNowWeatherData()?.let {nowWeatherData ->
-                _nowWeather.postValue(WeatherDataUI(
-                    SkyState(DayState.DAY,CloudState.SUNNY,RainState.NO),
-                    nowWeatherData.temperature,
-                    nowWeatherData.humidity.toInt(),
-                    nowWeatherData.windDirection,
-                    nowWeatherData.windSpeed,
-                    0,
-                    0
-                ))
+                _nowWeather.postValue(nowWeatherData.toWeatherDataUI())
             }
         }
     }

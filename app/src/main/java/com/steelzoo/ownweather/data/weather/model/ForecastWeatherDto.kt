@@ -15,19 +15,19 @@ data class ForecastWeatherDtoItem(
 
 data class ForecastWeatherDtoItemList(
     @SerializedName("item")
-    val weatherItemList: List<NowWeatherDtoItem>,
+    val weatherItemList: List<ForecastWeatherDtoItem>,
 )
 
 data class ForecastWeatherDtoBody(
     @SerializedName("items")
-    val weatherItems: NowWeatherDtoItemList,
+    val weatherItems: ForecastWeatherDtoItemList,
 )
 
 data class ForecastWeatherDtoResponse(
     val header: WeatherDtoHeader,
-    val body: NowWeatherDtoBody,
+    val body: ForecastWeatherDtoBody,
 )
 
 data class ForecastWeatherDto(
-    val response: NowWeatherDtoResponse,
+    val response: ForecastWeatherDtoResponse,
 )

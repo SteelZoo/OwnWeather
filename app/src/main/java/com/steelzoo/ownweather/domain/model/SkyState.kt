@@ -1,5 +1,4 @@
-package com.steelzoo.ownweather.ui.model
-
+package com.steelzoo.ownweather.domain.model
 
 data class SkyState(
     val dayState: DayState,
@@ -7,18 +6,18 @@ data class SkyState(
     val rainState: RainState
 )
 
-enum class DayState{
+enum class DayState {
     DAY,
     NIGHT
 }
 
-enum class CloudState{
+enum class CloudState {
     SUNNY,
     CLOUD_SUNNY,
     CLOUDY
 }
 
-enum class RainState{
+enum class RainState {
     NO,
     RAIN,
     RAIN_SNOW,
