@@ -46,10 +46,11 @@
                     android:id="@+id/iv_weather_image"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/icon_weather_sun"
+                    app:drawableSrc="@{viewmodel.nowWeather.skyState.drawableImage}"
                     app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
                     app:layout_constraintStart_toStartOf="@id/layout_weathercard"
-                    app:layout_constraintTop_toTopOf="@id/layout_weathercard" />
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:src="@drawable/icon_weather_night" />
 
                 <TextView
                     android:id="@+id/tv_weather_temperature"
