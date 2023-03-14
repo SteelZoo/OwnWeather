@@ -3,6 +3,9 @@ package com.steelzoo.ownweather.ui.model
 import com.steelzoo.ownweather.R
 
 
+/**
+ * 추후 Night 대응
+ */
 enum class SkyStateUI(val drawableImage: Int) {
     DAY_SUNNY_NO(R.drawable.icon_weather_sun),
     DAY_SUNNY_RAIN(R.drawable.icon_weather_sun_cloud_rain),
