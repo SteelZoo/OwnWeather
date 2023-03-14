@@ -8,6 +8,17 @@ import com.steelzoo.ownweather.ui.model.WeatherDataUI
  * domain -> ui
  */
 
+fun NowWeatherData.toWeatherDataUI():WeatherDataUI {
+    return WeatherDataUI(
+        skyState.toSkyStateUI(),
+        temperature,
+        humidity.toInt(),
+        windDirection,
+        windSpeed,
+        0,
+        0
+    )
+}
 
 fun SkyState.toSkyStateUI(): SkyStateUI{
     return when(this){
