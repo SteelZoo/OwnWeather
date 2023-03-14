@@ -4,6 +4,12 @@ import com.steelzoo.ownweather.data.weather.model.ForecastWeatherDto
 import com.steelzoo.ownweather.data.weather.model.NowWeatherDto
 import com.steelzoo.ownweather.domain.model.*
 
+
+/**
+ * data -> domain
+ */
+
+
 /**
  * 하늘상태(SKY) 코드 : 맑음(1), 구름많음(3), 흐림(4)
  *
