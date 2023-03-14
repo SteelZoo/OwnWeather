@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue_rain"
                     android:textSize="15sp"
-                    android:text="@{Integer.toString(viewmodel.nowWeather.humidity)}"
+                    android:text="@{Integer.toString(viewmodel.nowWeather.humidity)+`%`}"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_humidity"
                     app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
                     app:layout_constraintStart_toEndOf="@id/tv_weather_string_humidity"
