@@ -1,6 +1,7 @@
 package com.steelzoo.ownweather.data.weather
 
 import android.annotation.SuppressLint
+import android.util.Log
 import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat")
@@ -20,8 +21,8 @@ object WeatherUtil {
     /**
      * 경위도 좌표계를 기상청 XY 좌표계로 변경해주는 메소드
      */
-    fun convertLatLngToGridXY(lat: Double, lng: Double): String {
-        val resultString = StringBuilder()
+    fun convertLatLngToGridXY(lat: Double, lng: Double): Map<String,Int> {
+        val resultMap = mutableMapOf<String,Int>()
 
         val RE = 6371.00877 // 지구 반경(km)
         val GRID = 5.0 // 격자 간격(km)
@@ -55,13 +56,13 @@ object WeatherUtil {
         if (theta > Math.PI) theta -= 2.0 * Math.PI
         if (theta < -Math.PI) theta += 2.0 * Math.PI
         theta *= sn
-        resultString.append(Math.floor(ra * Math.sin(theta) + XO + 0.5).toInt())
-        resultString.append(" ")
-        resultString.append(Math.floor(ro - ra * Math.cos(theta) + YO + 0.5).toInt())
-//        rs.x = Math.floor(ra * Math.sin(theta) + XO + 0.5)
-//        rs.y = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5)
 
-        return resultString.toString()
+        resultMap["nx"] = Math.floor(ra * Math.sin(theta) + XO + 0.5).toInt()
+//            .also { Log.d("LOCATION_REQUEST", "getCurrentLocation: $it") }
+        resultMap["ny"] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5).toInt()
+//            .also { Log.d("LOCATION_REQUEST", "getCurrentLocation: $it") }
+
+        return resultMap.toMap()
     }
 
     /**

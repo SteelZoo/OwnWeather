@@ -14,18 +14,19 @@ class UnitTest {
 
     @Test
     fun `위경도 XY 좌표 변환 테스트`() {
-        assertEquals(
-            "60 127",
-            WeatherUtil.convertLatLngToGridXY(37.579871128849334, 126.98935225645432)
-        )
-        assertEquals(
-            "97 74",
-            WeatherUtil.convertLatLngToGridXY(35.101148844565955, 129.02478725562108)
-        )
-        assertEquals(
-            "53 38",
-            WeatherUtil.convertLatLngToGridXY(33.500946412305076, 126.54663058817043)
-        )
+        val map1 = WeatherUtil.convertLatLngToGridXY(37.579871128849334, 126.98935225645432)
+        val map2 = WeatherUtil.convertLatLngToGridXY(35.101148844565955, 129.02478725562108)
+        val map3 = WeatherUtil.convertLatLngToGridXY(33.500946412305076, 126.54663058817043)
+        val map4 = WeatherUtil.convertLatLngToGridXY(37.4590264, 126.6763081)
+
+        assertEquals(60, map1["nx"]); assertEquals(127, map1["ny"])
+        assertEquals(97, map2["nx"]); assertEquals(74, map2["ny"])
+        assertEquals(53, map3["nx"]); assertEquals(38, map3["ny"])
+
+        println(map1)
+        println(map2)
+        println(map3)
+        println(map4)
     }
 
     @Test
