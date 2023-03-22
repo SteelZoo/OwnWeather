@@ -21,13 +21,9 @@ class HomeViewModel @Inject constructor(
     val nowWeather: LiveData<WeatherDataUI>
         get() = _nowWeather
 
-    init {
-        getNowWeather()
-    }
-
-    private fun getNowWeather(){
+    fun getNowWeather(lat: Double, lng: Double){
         viewModelScope.launch(Dispatchers.IO) {
-            weatherDataRepository.getNowWeatherData()?.let {nowWeatherData ->
+            weatherDataRepository.getNowWeatherData(lat, lng)?.let {nowWeatherData ->
                 _nowWeather.postValue(nowWeatherData.toWeatherDataUI())
             }
         }
