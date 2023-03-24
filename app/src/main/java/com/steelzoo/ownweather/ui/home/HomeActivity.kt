@@ -21,9 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityHomeBinding
     private val homeViewModel: HomeViewModel by viewModels()
+
+    private var _binding: ActivityHomeBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val cancellationTokenSource = CancellationTokenSource()
@@ -31,9 +32,10 @@ class HomeActivity : AppCompatActivity() {
     private val requirePermissions = arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION)
     private val requestPermission = initPermissionActivityResultLauncher()
 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.viewmodel = homeViewModel
@@ -54,6 +56,7 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
 
         cancellationTokenSource.cancel()
+        _binding = null
     }
 
     override fun onRequestPermissionsResult(
