@@ -32,7 +32,9 @@ class HomeActivity : AppCompatActivity() {
     private val requirePermissions = arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION)
     private val requestPermission = initPermissionActivityResultLauncher()
 
-    
+    private fun showSnackbar(message: String) = Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).show()
+    private fun locationRequestLog(message: String) = Log.d("REQUEST_LOCATION",message)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -58,15 +60,6 @@ class HomeActivity : AppCompatActivity() {
         cancellationTokenSource.cancel()
         _binding = null
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
 
     private fun getDeniedPermissions(permissionsArray: Array<String>): Array<String> {
         /**
@@ -105,24 +98,36 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun getNowWeatherWithCurrentLocation(){
+        locationRequestLog("getNowWeatherWithCurrentLocation: start")
         fusedLocationProviderClient.getCurrentLocation(createCurrentLocationRequest(), cancellationTokenSource.token)
             .addOnCompleteListener {
-
+                locationRequestLog("getNowWeatherWithCurrentLocation: complete")
+                showSnackbar("위치정보 호출에 실패했습니다. complete")
             }
             .addOnSuccessListener { location ->
-                homeViewModel.getNowWeather(location.latitude, location.longitude)
+                if (location != null){
+                    homeViewModel.getNowWeather(location.latitude, location.longitude)
+                    locationRequestLog("getNowWeatherWithCurrentLocation: success")
+                    showSnackbar("success ${location.latitude} ${location.longitude}")
+                } else {
+                    locationRequestLog( "getNowWeatherWithCurrentLocation: success but fail")
+                    showSnackbar("위치정보 호출에 실패했습니다. fail")
+                }
             }
             .addOnFailureListener { exception ->
-                Snackbar.make(binding.root, "위치정보 호출에 실패했습니다.", Snackbar.LENGTH_SHORT).show()
+                locationRequestLog("getNowWeatherWithCurrentLocation: fail")
+                showSnackbar("위치정보 호출에 실패했습니다. fail")
             }
             .addOnCanceledListener {
-                Snackbar.make(binding.root, "위치정보 호출에 실패했습니다.", Snackbar.LENGTH_SHORT).show()
+                locationRequestLog("getNowWeatherWithCurrentLocation: fail")
+                Log.d("REQUEST_LOCATION", "getNowWeatherWithCurrentLocation: cancel")
+                showSnackbar("위치정보 호출에 실패했습니다. cancel")
             }
     }
 
     private fun createCurrentLocationRequest(): CurrentLocationRequest =
         CurrentLocationRequest.Builder()
-            .setDurationMillis(3000)
+            .setDurationMillis(5000)
             .setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
             .setMaxUpdateAgeMillis(1000)
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
