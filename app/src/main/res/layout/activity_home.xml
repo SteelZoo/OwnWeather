@@ -175,7 +175,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_weathercard"
             tools:itemCount="9"
-            tools:listitem="@layout/item_recyclerview_shortpre" />
+            tools:listitem="@layout/item_recyclerview_shortforecast" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

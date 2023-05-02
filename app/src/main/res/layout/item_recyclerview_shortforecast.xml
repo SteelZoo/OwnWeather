@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_item_shortpre_time"
+        android:id="@+id/tv_item_shortforecast_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -14,13 +14,13 @@
         tools:text="1700" />
 
     <ImageView
-        android:id="@+id/iv_item_shortpre_image"
+        android:id="@+id/iv_item_shortforecast_image"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         tools:src="@drawable/icon_weather_night" />
 
     <TextView
-        android:id="@+id/tv_item_shortpre_temperature"
+        android:id="@+id/tv_item_shortforecast_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,7 +28,7 @@
         tools:text="17°" />
 
     <TextView
-        android:id="@+id/tv_item_shortpre_humidity"
+        android:id="@+id/tv_item_shortforecast_humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
