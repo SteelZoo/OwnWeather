@@ -13,6 +13,7 @@ fun NowWeatherData.toWeatherDataUI():WeatherDataUI {
         skyState.toSkyStateUI(),
         temperature,
         humidity.toInt(),
+        oneHourPrecipitation,
         windDirection,
         windSpeed,
         0,
@@ -23,7 +24,7 @@ fun NowWeatherData.toWeatherDataUI():WeatherDataUI {
 fun SkyState.toSkyStateUI(): SkyStateUI{
     return when(this){
         SkyState(DayState.DAY,CloudState.SUNNY,RainState.NO) -> {SkyStateUI.DAY_SUNNY_NO}
-        SkyState(DayState.DAY,CloudState.SUNNY,RainState.RAIN) -> {SkyStateUI.DAY_CLOUDY_RAIN}
+        SkyState(DayState.DAY,CloudState.SUNNY,RainState.RAIN) -> {SkyStateUI.DAY_SUNNY_RAIN}
         SkyState(DayState.DAY,CloudState.SUNNY,RainState.RAIN_SNOW) -> {SkyStateUI.DAY_SUNNY_RAIN_SNOW}
         SkyState(DayState.DAY,CloudState.SUNNY,RainState.SNOW) -> {SkyStateUI.DAY_SUNNY_SNOW}
         SkyState(DayState.DAY,CloudState.CLOUD_SUNNY,RainState.NO) -> {SkyStateUI.DAY_CLOUD_SUNNY_NO}

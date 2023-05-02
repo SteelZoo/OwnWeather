@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="60dp"
+    android:layout_height="180dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_item_shortforecast_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="?attr/colorOnSecondary"
+        tools:text="1700" />
+
+    <ImageView
+        android:id="@+id/iv_item_shortforecast_image"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        tools:src="@drawable/icon_weather_night" />
+
+    <TextView
+        android:id="@+id/tv_item_shortforecast_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="?attr/colorOnSecondary"
+        tools:text="17°" />
+
+    <TextView
+        android:id="@+id/tv_item_shortforecast_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/blue_humidity"
+        tools:text="60%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/blue_rain"
+        tools:text="15mm" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:text="60%" />
+
+
+</LinearLayout>
