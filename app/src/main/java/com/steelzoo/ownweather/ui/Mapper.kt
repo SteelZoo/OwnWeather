@@ -13,7 +13,7 @@ fun NowWeatherData.toWeatherDataUI():WeatherDataUI {
         skyState.toSkyStateUI(),
         temperature,
         humidity.toInt(),
-        oneHourPrecipitation.toInt(),
+        oneHourPrecipitation,
         windDirection,
         windSpeed,
         0,
