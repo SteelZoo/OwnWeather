@@ -1,53 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="60dp"
-    android:layout_height="180dp"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_item_shortforecast_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="?attr/colorOnSecondary"
-        tools:text="1700" />
+    <data>
 
-    <ImageView
-        android:id="@+id/iv_item_shortforecast_image"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        tools:src="@drawable/icon_weather_night" />
+        <variable
+            name="time"
+            type="String" />
 
-    <TextView
-        android:id="@+id/tv_item_shortforecast_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="?attr/colorOnSecondary"
-        tools:text="17°" />
+        <variable
+            name="skyImageAddress"
+            type="Integer" />
 
-    <TextView
-        android:id="@+id/tv_item_shortforecast_humidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/blue_humidity"
-        tools:text="60%" />
+        <variable
+            name="temperature"
+            type="Integer" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/blue_rain"
-        tools:text="15mm" />
+        <variable
+            name="humidity"
+            type="Integer" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        tools:text="60%" />
+        <variable
+            name="precipitation"
+            type="Double" />
+
+        <variable
+            name="probability"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_shortforecast_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{time}"
+            android:textColor="?attr/colorOnSecondary"
+            tools:text="1700" />
+
+        <ImageView
+            android:id="@+id/iv_item_shortforecast_image"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:drawableSrc="@{skyImageAddress}"
+            tools:src="@drawable/icon_weather_night" />
+
+        <TextView
+            android:id="@+id/tv_item_shortforecast_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{temperature + `°`}"
+            android:textColor="?attr/colorOnSecondary"
+            tools:text="17°" />
+
+        <TextView
+            android:id="@+id/tv_item_shortforecast_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{humidity + `%`}"
+            android:textColor="@color/blue_humidity"
+            tools:text="60%" />
+
+        <TextView
+            android:id="@+id/tv_item_shortforecast_precipitation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@{precipitation + `mm`}"
+            android:textColor="@color/blue_rain"
+            tools:text="15mm" />
+
+        <TextView
+            android:id="@+id/tv_item_shortforecast_probability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{probability + `%`}"
+            tools:text="60%" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
