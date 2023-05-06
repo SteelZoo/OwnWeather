@@ -23,7 +23,7 @@
 
         <variable
             name="precipitation"
-            type="Double" />
+            type="String" />
 
         <variable
             name="probability"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="@{precipitation + `mm`}"
+            android:text="@{precipitation}"
             android:textColor="@color/blue_rain"
             tools:text="15mm" />
 
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{probability + `%`}"
+            android:text="@{probability > 0 ? probability + `%` : `--`}"
             tools:text="60%" />
 
 
