@@ -13,10 +13,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.steelzoo.ownweather.databinding.ActivityHomeBinding
+import com.steelzoo.ownweather.ui.home.recyclerview_shortforecast.ShortForecastAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,8 +31,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val cancellationTokenSource = CancellationTokenSource()
 
-    private val requirePermissions = arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION)
+    private val requirePermissions = arrayOf(ACCESS_FINE_LOCATION)
     private val requestPermission = initPermissionActivityResultLauncher()
+
+    private val shortForecastAdapter = ShortForecastAdapter()
 
     private fun showSnackbar(message: String) = Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).show()
     private fun locationRequestLog(message: String) = Log.d("REQUEST_LOCATION",message)
@@ -44,6 +48,10 @@ class HomeActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        binding.rvShortforecast.adapter = shortForecastAdapter
+
+        setObserveLiveData()
 
         getDeniedPermissions(requirePermissions).let {
             if (it.isNotEmpty()) {
@@ -59,6 +67,12 @@ class HomeActivity : AppCompatActivity() {
 
         cancellationTokenSource.cancel()
         _binding = null
+    }
+
+    private fun setObserveLiveData(){
+        homeViewModel.shortForecast.observe(this){
+            shortForecastAdapter.submitList(it)
+        }
     }
 
     private fun getDeniedPermissions(permissionsArray: Array<String>): Array<String> {
@@ -91,7 +105,6 @@ class HomeActivity : AppCompatActivity() {
                 }
                 //TODO 위치 권한 미허용 대응 기능 필요
                 Toast.makeText(this,"권한이 필요합니다.", Toast.LENGTH_SHORT).show()
-                finish()
             }
         }
     }
@@ -107,6 +120,7 @@ class HomeActivity : AppCompatActivity() {
             .addOnSuccessListener { location ->
                 if (location != null){
                     homeViewModel.getNowWeather(location.latitude, location.longitude)
+                    homeViewModel.getShortForecast(location.latitude, location.longitude)
                     locationRequestLog("getNowWeatherWithCurrentLocation: success")
                     showSnackbar("success ${location.latitude} ${location.longitude}")
                 } else {

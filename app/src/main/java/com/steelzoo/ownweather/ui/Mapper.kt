@@ -1,6 +1,7 @@
 package com.steelzoo.ownweather.ui
 
 import com.steelzoo.ownweather.domain.model.*
+import com.steelzoo.ownweather.ui.model.ShortForecastItem
 import com.steelzoo.ownweather.ui.model.SkyStateUI
 import com.steelzoo.ownweather.ui.model.WeatherDataUI
 
@@ -36,5 +37,21 @@ fun SkyState.toSkyStateUI(): SkyStateUI{
         SkyState(DayState.DAY,CloudState.CLOUDY,RainState.RAIN_SNOW) -> {SkyStateUI.DAY_CLOUDY_RAIN_SNOW}
         SkyState(DayState.DAY,CloudState.CLOUDY,RainState.SNOW) -> {SkyStateUI.DAY_CLOUDY_SNOW}
         else -> {SkyStateUI.DAY_SUNNY_NO}
+    }
+}
+
+fun List<ShortForecastData>.toShortForecastItemList(): List<ShortForecastItem>{
+    return this.map {
+        with(it){
+            ShortForecastItem(
+                date,
+                time,
+                skyState.toSkyStateUI(),
+                temperature,
+                humidity,
+                precipitation,
+                probability
+            )
+        }
     }
 }
