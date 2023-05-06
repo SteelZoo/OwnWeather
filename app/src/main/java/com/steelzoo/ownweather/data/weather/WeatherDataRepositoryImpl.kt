@@ -2,12 +2,14 @@ package com.steelzoo.ownweather.data.weather
 
 import android.util.Log
 import com.steelzoo.ownweather.data.getNowWeatherDataWithNowAndUltraShort
+import com.steelzoo.ownweather.data.toShortForecastDataList
 import com.steelzoo.ownweather.domain.model.NowWeatherData
+import com.steelzoo.ownweather.domain.model.ShortForecastData
 import com.steelzoo.ownweather.domain.repositoryinterface.WeatherDataRepository
 import javax.inject.Inject
 
 class WeatherDataRepositoryImpl @Inject constructor(
-    val remoteSource: WeatherDataRemoteSource
+    private val remoteSource: WeatherDataRemoteSource
 ) : WeatherDataRepository {
     override suspend fun getNowWeatherData(lat: Double, lng: Double): NowWeatherData? {
         val currentTime = System.currentTimeMillis()
@@ -30,5 +32,23 @@ class WeatherDataRepositoryImpl @Inject constructor(
             return null
         }
         return getNowWeatherDataWithNowAndUltraShort(nowWeatherDto, ultraShortWeatherDto)
+    }
+
+    override suspend fun getShortForecast(lat: Double, lng: Double): List<ShortForecastData>? {
+        val currentTime = System.currentTimeMillis()
+        val nxnyMap = WeatherUtil.convertLatLngToGridXY(lat, lng)
+
+        val ultraShortWeatherDto = remoteSource.getUltraShortForecastData(
+            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
+            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
+            nxnyMap["nx"]!!,
+            nxnyMap["ny"]!!
+        )
+
+        if (ultraShortWeatherDto.response.body == null){
+            return null
+        }
+
+        return ultraShortWeatherDto.toShortForecastDataList()
     }
 }
