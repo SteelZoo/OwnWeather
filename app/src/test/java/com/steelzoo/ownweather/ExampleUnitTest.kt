@@ -4,6 +4,7 @@ import com.steelzoo.ownweather.data.weather.WeatherUtil
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.text.SimpleDateFormat
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -77,4 +78,17 @@ class UnitTest {
         }
 
     }
+
+    @Test
+    fun `getBaseTime 단기예보(SHORT_FORECAST) 동작확인`() {
+        val hourMinuteDateFormat = SimpleDateFormat("yyyyMMddHHmm")
+        val hourMinuteDateFormat2 = SimpleDateFormat("HHmm")
+
+        assertEquals("2300",WeatherUtil.getBaseTime(hourMinuteDateFormat2.parse("0209").time,WeatherUtil.BaseTimeType.SHORT_FORECAST))
+        assertEquals("0200",WeatherUtil.getBaseTime(hourMinuteDateFormat2.parse("0210").time,WeatherUtil.BaseTimeType.SHORT_FORECAST))
+        assertEquals("0200",WeatherUtil.getBaseTime(hourMinuteDateFormat2.parse("0356").time,WeatherUtil.BaseTimeType.SHORT_FORECAST))
+
+    }
+
+
 }
