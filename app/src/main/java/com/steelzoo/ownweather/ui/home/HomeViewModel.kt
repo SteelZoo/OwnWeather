@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
         get() = _shortForecast
 
     fun getNowWeather(lat: Double, lng: Double){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             weatherDataRepository.getNowWeatherData(lat, lng)?.let {nowWeatherData ->
                 _nowWeather.postValue(nowWeatherData.toWeatherDataUI())
             }
@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getShortForecast(lat: Double, lng: Double){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             weatherDataRepository.getShortForecast(lat, lng)?.let {shortForecastDataList ->
                 _shortForecast.postValue(shortForecastDataList.toShortForecastItemList())
             }
