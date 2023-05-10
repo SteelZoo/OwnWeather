@@ -20,4 +20,10 @@ class WeatherDataRemoteSource @Inject constructor(
             baseDate, baseTime, nx, ny
         )
     }
+
+    suspend fun getShortForecastData(baseDate: String, baseTime: String, nx: Int, ny: Int): ForecastWeatherDto{
+        return goRetrofit.create(WeatherService::class.java).getShortForecast(
+            baseDate, baseTime, nx, ny
+        )
+    }
 }

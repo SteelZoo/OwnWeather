@@ -16,7 +16,7 @@ object WeatherUtil {
     const val MINUTE_TO_MILLIS = 60000
 
     private val baseDateFormat: SimpleDateFormat = SimpleDateFormat("yyyyMMdd")
-    private val hourDateFormat: SimpleDateFormat = SimpleDateFormat("HH00")
+    val hourDateFormat: SimpleDateFormat = SimpleDateFormat("HH00")
     private val minuteDateFormat: SimpleDateFormat = SimpleDateFormat("00mm")
 
     /**

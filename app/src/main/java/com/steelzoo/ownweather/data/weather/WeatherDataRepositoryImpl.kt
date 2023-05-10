@@ -45,10 +45,30 @@ class WeatherDataRepositoryImpl @Inject constructor(
             nxnyMap["ny"]!!
         )
 
-        if (ultraShortWeatherDto.response.body == null){
+        val shortWeatherDto = remoteSource.getShortForecastData(
+            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseTimeType.SHORT_FORECAST),
+            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseTimeType.SHORT_FORECAST),
+            nxnyMap["nx"]!!,
+            nxnyMap["ny"]!!
+        )
+
+        if (ultraShortWeatherDto.response.body == null || shortWeatherDto.response.body == null){
             return null
         }
 
-        return ultraShortWeatherDto.toShortForecastDataList()
+
+        return ultraShortWeatherDto.toShortForecastDataList().toMutableList().apply {
+            if (this.first().time == WeatherUtil.hourDateFormat.format(currentTime)){
+                this.removeFirst()
+            }
+            shortWeatherDto.toShortForecastDataList().toMutableList().forEach { shortForecastData ->
+                if ((this.last().date+this.last().time).toLong() < (shortForecastData.date+shortForecastData.time).toLong()){
+                    this.add(shortForecastData)
+                }
+            }
+        }
+
+//        return ultraShortWeatherDto.toShortForecastDataList()
+//        return shortWeatherDto.toShortForecastDataList()
     }
 }
