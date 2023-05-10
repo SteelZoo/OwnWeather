@@ -1,7 +1,6 @@
 package com.steelzoo.ownweather.data.weather
 
 import android.annotation.SuppressLint
-import android.util.Log
 import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat")
@@ -14,6 +13,7 @@ object WeatherUtil {
     }
 
     const val HOUR_TO_MILLIS = 3600000
+    const val MINUTE_TO_MILLIS = 60000
 
     private val baseDateFormat: SimpleDateFormat = SimpleDateFormat("yyyyMMdd")
     private val hourDateFormat: SimpleDateFormat = SimpleDateFormat("HH00")
@@ -94,10 +94,18 @@ object WeatherUtil {
 
         val resultBaseMinuteString = StringBuilder()
 
-        if (minuteDateFormat.format(currentTimeMillis).toInt() < baseMinuteType.minute) {
-            resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
-        } else {
-            resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis))
+        when(baseTimeType){
+            BaseTimeType.NOWCAST,BaseTimeType.ULTRASHORT_FORECAST -> {
+                if (minuteDateFormat.format(currentTimeMillis).toInt() < baseTimeType.baseMinute) {
+                    resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
+                } else {
+                    resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis))
+                }
+            }
+            BaseTimeType.SHORT_FORECAST -> {
+                val baseTimeMillis = ((((currentTimeMillis + HOUR_TO_MILLIS*24 - (10 * MINUTE_TO_MILLIS) + HOUR_TO_MILLIS) / (3 * HOUR_TO_MILLIS)) * (3 * HOUR_TO_MILLIS)) - HOUR_TO_MILLIS)
+                resultBaseMinuteString.append(hourDateFormat.format(baseTimeMillis))
+            }
         }
 
         return resultBaseMinuteString.toString()
