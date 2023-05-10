@@ -17,14 +17,14 @@ class WeatherDataRepositoryImpl @Inject constructor(
         Log.d("LOCATION_REQUEST", "getCurrentLocation: $nxnyMap")
 
         val nowWeatherDto = remoteSource.getNowWeatherData(
-            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE),
-            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE),
+            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseTimeType.NOWCAST),
+            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseTimeType.NOWCAST),
             nxnyMap["nx"]!!,
             nxnyMap["ny"]!!
         )
         val ultraShortWeatherDto = remoteSource.getUltraShortForecastData(
-            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
-            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
+            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseTimeType.ULTRASHORT_FORECAST),
+            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseTimeType.ULTRASHORT_FORECAST),
             nxnyMap["nx"]!!,
             nxnyMap["ny"]!!
         )
@@ -39,8 +39,8 @@ class WeatherDataRepositoryImpl @Inject constructor(
         val nxnyMap = WeatherUtil.convertLatLngToGridXY(lat, lng)
 
         val ultraShortWeatherDto = remoteSource.getUltraShortForecastData(
-            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
-            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
+            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseTimeType.ULTRASHORT_FORECAST),
+            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseTimeType.ULTRASHORT_FORECAST),
             nxnyMap["nx"]!!,
             nxnyMap["ny"]!!
         )

@@ -32,10 +32,10 @@ class UnitTest {
     @Test
     fun `WeatherUtil baseDate 리턴 값 테스트`() {
         try {
-            println(WeatherUtil.getBaseDate(1678123094687 - (1000*60*60*3),WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
-            assertEquals("20230306",WeatherUtil.getBaseDate(1678123094687 - (1000*60*60*3),WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
-            println(WeatherUtil.getBaseDate(1678123094687,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
-            assertEquals("20230307",WeatherUtil.getBaseDate(1678123094687,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
+            println(WeatherUtil.getBaseDate(1678123094687 - (1000*60*60*3),WeatherUtil.BaseTimeType.NOWCAST))
+            assertEquals("20230306",WeatherUtil.getBaseDate(1678123094687 - (1000*60*60*3),WeatherUtil.BaseTimeType.NOWCAST))
+            println(WeatherUtil.getBaseDate(1678123094687,WeatherUtil.BaseTimeType.NOWCAST))
+            assertEquals("20230307",WeatherUtil.getBaseDate(1678123094687,WeatherUtil.BaseTimeType.NOWCAST))
         }catch (e: Exception) {
             println(e.cause)
         }
@@ -44,10 +44,10 @@ class UnitTest {
     @Test
     fun `WeatherUtil baseTime 리턴 값 테스트`() {
         try {
-            println(WeatherUtil.getBaseTime(1678123094687+(1000*60*30),WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
-            assertEquals("0200",WeatherUtil.getBaseTime(1678123094687+(1000*60*30),WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
-            println(WeatherUtil.getBaseTime(1678123094687,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
-            assertEquals("0100",WeatherUtil.getBaseTime(1678123094687,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE))
+            println(WeatherUtil.getBaseTime(1678123094687+(1000*60*30),WeatherUtil.BaseTimeType.NOWCAST))
+            assertEquals("0200",WeatherUtil.getBaseTime(1678123094687+(1000*60*30),WeatherUtil.BaseTimeType.NOWCAST))
+            println(WeatherUtil.getBaseTime(1678123094687,WeatherUtil.BaseTimeType.NOWCAST))
+            assertEquals("0100",WeatherUtil.getBaseTime(1678123094687,WeatherUtil.BaseTimeType.NOWCAST))
         }catch (e: Exception) {
             println(e.cause)
         }
@@ -60,18 +60,18 @@ class UnitTest {
 
         for (i in 1..10){
             startTime = System.currentTimeMillis()
-            WeatherUtil.getBaseDate(startTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE)
+            WeatherUtil.getBaseDate(startTime,WeatherUtil.BaseTimeType.NOWCAST)
             endTime = System.currentTimeMillis()
-            WeatherUtil.getBaseDate(endTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE)
+            WeatherUtil.getBaseDate(endTime,WeatherUtil.BaseTimeType.NOWCAST)
 
             println(startTime-endTime)
         }
 
         for (i in 1..10){
             startTime = System.currentTimeMillis()
-            WeatherUtil.getBaseDate(startTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE)
+            WeatherUtil.getBaseDate(startTime,WeatherUtil.BaseTimeType.NOWCAST)
             endTime = System.currentTimeMillis()
-            WeatherUtil.getBaseDate(endTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE)
+            WeatherUtil.getBaseDate(endTime,WeatherUtil.BaseTimeType.NOWCAST)
 
             println(startTime-endTime)
         }

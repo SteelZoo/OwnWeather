@@ -7,9 +7,10 @@ import java.text.SimpleDateFormat
 @SuppressLint("SimpleDateFormat")
 object WeatherUtil {
 
-    enum class BaseMinuteType(val minute: Int) {
-        NOWCAST_BASEMINUTE(40),
-        ULTRASHORT_FORECAST_BASEMINUTE(45)
+    enum class BaseTimeType(val baseMinute: Int) {
+        NOWCAST(40),
+        ULTRASHORT_FORECAST(45),
+        SHORT_FORECAST(0),
     }
 
     const val HOUR_TO_MILLIS = 3600000
@@ -71,10 +72,10 @@ object WeatherUtil {
      * val baseDate = WeatherUtil.getBaseDate(currentTimeMillis,~)
      * val baseTime = WeatherUtil.getBaseTime(currentTimeMillis,~)
      */
-    fun getBaseDate(currentTimeMillis: Long, baseMinuteType: BaseMinuteType): String {
+    fun getBaseDate(currentTimeMillis: Long, baseTimeType: BaseTimeType): String {
         val resultBaseDateString = StringBuilder()
 
-        if (getBaseTime(currentTimeMillis, baseMinuteType) == "2300"
+        if (getBaseTime(currentTimeMillis, baseTimeType) == "2300"
             && minuteDateFormat.format(currentTimeMillis) != "2300") {
             resultBaseDateString.append(baseDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
         } else {
@@ -89,7 +90,7 @@ object WeatherUtil {
      * 초단기 예보 각 시간 45분
      * 단기 예보는 0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회) 각 시간 10분 후
      */
-    fun getBaseTime(currentTimeMillis: Long, baseMinuteType: BaseMinuteType): String {
+    fun getBaseTime(currentTimeMillis: Long, baseTimeType: BaseTimeType): String {
 
         val resultBaseMinuteString = StringBuilder()
 
