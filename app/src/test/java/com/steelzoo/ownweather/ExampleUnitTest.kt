@@ -10,6 +10,11 @@ import java.text.SimpleDateFormat
  * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
+ *
+ * 1683567208929 : 230509 0233
+ * 3600000 :One Hour
+ *
+ *
  */
 class UnitTest {
 
@@ -37,6 +42,17 @@ class UnitTest {
             assertEquals("20230306",WeatherUtil.getBaseDate(1678123094687 - (1000*60*60*3),WeatherUtil.BaseTimeType.NOWCAST))
             println(WeatherUtil.getBaseDate(1678123094687,WeatherUtil.BaseTimeType.NOWCAST))
             assertEquals("20230307",WeatherUtil.getBaseDate(1678123094687,WeatherUtil.BaseTimeType.NOWCAST))
+
+            //baseDate 버그 현상 확인
+            println()
+            println(WeatherUtil.getBaseDate(1683556408929,WeatherUtil.BaseTimeType.NOWCAST))
+            println(WeatherUtil.getBaseTime(1683556408929,WeatherUtil.BaseTimeType.NOWCAST))
+            println(SimpleDateFormat("yyyyMMddHHmm").format(1683556408929))
+
+            println()
+            println(WeatherUtil.getBaseDate(1683556408929+(1000*60*20),WeatherUtil.BaseTimeType.NOWCAST))
+            println(WeatherUtil.getBaseTime(1683556408929+(1000*60*20),WeatherUtil.BaseTimeType.NOWCAST))
+            println(SimpleDateFormat("yyyyMMddHHmm").format(1683556408929+(1000*60*20)))
         }catch (e: Exception) {
             println(e.cause)
         }
