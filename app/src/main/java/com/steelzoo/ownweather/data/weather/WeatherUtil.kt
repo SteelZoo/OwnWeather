@@ -77,7 +77,7 @@ object WeatherUtil {
 
         if (getBaseTime(currentTimeMillis, baseTimeType) == "2300"
             && minuteDateFormat.format(currentTimeMillis) != "2300") {
-            resultBaseDateString.append(baseDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
+            resultBaseDateString.append(baseDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS*3))
         } else {
             resultBaseDateString.append(baseDateFormat.format(currentTimeMillis))
         }
