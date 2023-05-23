@@ -1,10 +1,13 @@
 package com.steelzoo.ownweather.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.steelzoo.ownweather.domain.repositoryinterface.WeatherDataRepository
+import com.steelzoo.ownweather.domain.usecase.GetNowWeatherUseCase
+import com.steelzoo.ownweather.domain.usecase.GetShortForecastUseCase
 import com.steelzoo.ownweather.ui.model.ShortForecastItem
 import com.steelzoo.ownweather.ui.model.WeatherDataUI
 import com.steelzoo.ownweather.ui.toShortForecastItemList
@@ -16,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val weatherDataRepository: WeatherDataRepository
+    private val getNowWeatherUseCase: GetNowWeatherUseCase,
+    private val getShortForecastUseCase: GetShortForecastUseCase
 ): ViewModel() {
 
     private val _nowWeather = MutableLiveData<WeatherDataUI>()
@@ -29,16 +33,23 @@ class HomeViewModel @Inject constructor(
 
     fun getNowWeather(lat: Double, lng: Double){
         viewModelScope.launch {
-            weatherDataRepository.getNowWeatherData(lat, lng)?.let {nowWeatherData ->
-                _nowWeather.postValue(nowWeatherData.toWeatherDataUI())
+            getNowWeatherUseCase(lat, lng)?.let {nowWeatherData ->
+                _nowWeather.postValue(nowWeatherData.toWeatherDataUI().also {
+                    Log.d("FORECAST", "getNowWeather: $it")
+                })
             }
         }
     }
 
     fun getShortForecast(lat: Double, lng: Double){
         viewModelScope.launch {
-            weatherDataRepository.getShortForecast(lat, lng)?.let {shortForecastDataList ->
-                _shortForecast.postValue(shortForecastDataList.toShortForecastItemList())
+            Log.d("FORECAST", "getShortForecast: start")
+            getShortForecastUseCase(lat, lng)?.let {shortForecastDataList ->
+                _shortForecast.postValue(shortForecastDataList.toShortForecastItemList().also {
+                    Log.d(
+                        "FORECAST",
+                        "getShortForecast: $it"
+                    ) })
             }
         }
     }
