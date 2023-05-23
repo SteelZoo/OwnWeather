@@ -1,10 +1,10 @@
 package com.steelzoo.ownweather.ui.home
 
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,13 +13,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.steelzoo.ownweather.databinding.ActivityHomeBinding
 import com.steelzoo.ownweather.ui.home.recyclerview_shortforecast.ShortForecastAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -57,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
             if (it.isNotEmpty()) {
                 requestPermission.launch(it)
             } else {
-                getNowWeatherWithCurrentLocation()
+                getWeather_CurrentLocation()
             }
         }
     }
@@ -98,10 +98,10 @@ class HomeActivity : AppCompatActivity() {
             ActivityResultContracts.RequestMultiplePermissions()
         ){ permissionResult ->
             if (permissionResult.values.all { it }){
-                getNowWeatherWithCurrentLocation()
+                getWeather_CurrentLocation()
             } else {
                 if(getDeniedPermissions(requirePermissions).isEmpty()){
-                    getNowWeatherWithCurrentLocation()
+                    getWeather_CurrentLocation()
                 }
                 //TODO 위치 권한 미허용 대응 기능 필요
                 Toast.makeText(this,"권한이 필요합니다.", Toast.LENGTH_SHORT).show()
@@ -110,33 +110,49 @@ class HomeActivity : AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getNowWeatherWithCurrentLocation(){
-        locationRequestLog("getNowWeatherWithCurrentLocation: start")
+    private fun getWeather_CurrentLocation(){
         fusedLocationProviderClient.getCurrentLocation(createCurrentLocationRequest(), cancellationTokenSource.token)
-            .addOnCompleteListener {
-                locationRequestLog("getNowWeatherWithCurrentLocation: complete")
-                showSnackbar("위치정보 호출에 실패했습니다. complete")
-            }
             .addOnSuccessListener { location ->
                 if (location != null){
-                    homeViewModel.getNowWeather(location.latitude, location.longitude)
-                    homeViewModel.getShortForecast(location.latitude, location.longitude)
+                    runGetWeathers(location)
                     locationRequestLog("getNowWeatherWithCurrentLocation: success")
                     showSnackbar("success ${location.latitude} ${location.longitude}")
                 } else {
                     locationRequestLog( "getNowWeatherWithCurrentLocation: success but fail")
-                    showSnackbar("위치정보 호출에 실패했습니다. fail")
+                    getWeather_LastLocation()
                 }
             }
             .addOnFailureListener { exception ->
                 locationRequestLog("getNowWeatherWithCurrentLocation: fail")
-                showSnackbar("위치정보 호출에 실패했습니다. fail")
+                getWeather_LastLocation()
             }
             .addOnCanceledListener {
                 locationRequestLog("getNowWeatherWithCurrentLocation: fail")
                 Log.d("REQUEST_LOCATION", "getNowWeatherWithCurrentLocation: cancel")
-                showSnackbar("위치정보 호출에 실패했습니다. cancel")
+                showSnackbar("위치정보 호출을 취소했습니다.")
             }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getWeather_LastLocation(){
+        fusedLocationProviderClient.getLastLocation(
+            LastLocationRequest.Builder().build()
+        )
+            .addOnSuccessListener {location ->
+                runGetWeathers(location)
+                showSnackbar("정확한 위치가 아닐 수 있습니다.")
+            }
+            .addOnFailureListener {
+                showSnackbar("위치정보 호출에 실패했습니다.")
+            }
+            .addOnCanceledListener {
+                showSnackbar("위치정보 호출을 취소했습니다.")
+            }
+    }
+
+    private fun runGetWeathers(location: Location){
+        homeViewModel.getNowWeather(location.latitude, location.longitude)
+        homeViewModel.getShortForecast(location.latitude, location.longitude)
     }
 
     private fun createCurrentLocationRequest(): CurrentLocationRequest =

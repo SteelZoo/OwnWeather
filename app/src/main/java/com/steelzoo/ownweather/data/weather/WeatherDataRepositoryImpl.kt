@@ -3,52 +3,44 @@ package com.steelzoo.ownweather.data.weather
 import android.util.Log
 import com.steelzoo.ownweather.data.getNowWeatherDataWithNowAndUltraShort
 import com.steelzoo.ownweather.data.toShortForecastDataList
+import com.steelzoo.ownweather.data.weather.model.ForecastWeatherDto
+import com.steelzoo.ownweather.data.weather.model.NowWeatherDto
 import com.steelzoo.ownweather.domain.model.NowWeatherData
 import com.steelzoo.ownweather.domain.model.ShortForecastData
 import com.steelzoo.ownweather.domain.repositoryinterface.WeatherDataRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import javax.inject.Inject
 
 class WeatherDataRepositoryImpl @Inject constructor(
     private val remoteSource: WeatherDataRemoteSource
 ) : WeatherDataRepository {
-    override suspend fun getNowWeatherData(lat: Double, lng: Double): NowWeatherData? {
-        val currentTime = System.currentTimeMillis()
-        val nxnyMap = WeatherUtil.convertLatLngToGridXY(lat, lng)
-        Log.d("LOCATION_REQUEST", "getCurrentLocation: $nxnyMap")
 
-        val nowWeatherDto = remoteSource.getNowWeatherData(
-            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE),
-            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.NOWCAST_BASEMINUTE),
-            nxnyMap["nx"]!!,
-            nxnyMap["ny"]!!
-        )
-        val ultraShortWeatherDto = remoteSource.getUltraShortForecastData(
-            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
-            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
-            nxnyMap["nx"]!!,
-            nxnyMap["ny"]!!
-        )
-        if (nowWeatherDto.response.body == null || ultraShortWeatherDto.response.body == null) {
-            return null
-        }
-        return getNowWeatherDataWithNowAndUltraShort(nowWeatherDto, ultraShortWeatherDto)
+    override suspend fun getNowWeatherData(
+        baseDate: String,
+        baseTime: String,
+        nx: Int,
+        ny: Int
+    ): NowWeatherDto {
+        return remoteSource.getNowWeatherData(baseDate, baseTime, nx, ny)
     }
 
-    override suspend fun getShortForecast(lat: Double, lng: Double): List<ShortForecastData>? {
-        val currentTime = System.currentTimeMillis()
-        val nxnyMap = WeatherUtil.convertLatLngToGridXY(lat, lng)
+    override suspend fun getUltraShortForecastData(
+        baseDate: String,
+        baseTime: String,
+        nx: Int,
+        ny: Int
+    ): ForecastWeatherDto {
+        return remoteSource.getUltraShortForecastData(baseDate, baseTime, nx, ny)
+    }
 
-        val ultraShortWeatherDto = remoteSource.getUltraShortForecastData(
-            WeatherUtil.getBaseDate(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
-            WeatherUtil.getBaseTime(currentTime,WeatherUtil.BaseMinuteType.ULTRASHORT_FORECAST_BASEMINUTE),
-            nxnyMap["nx"]!!,
-            nxnyMap["ny"]!!
-        )
-
-        if (ultraShortWeatherDto.response.body == null){
-            return null
-        }
-
-        return ultraShortWeatherDto.toShortForecastDataList()
+    override suspend fun getShortForecastData(
+        baseDate: String,
+        baseTime: String,
+        nx: Int,
+        ny: Int
+    ): ForecastWeatherDto {
+        return remoteSource.getShortForecastData(baseDate, baseTime, nx, ny)
     }
 }
