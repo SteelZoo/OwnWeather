@@ -4,13 +4,16 @@ package com.steelzoo.ownweather.ui.home
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
@@ -18,8 +21,10 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.steelzoo.ownweather.databinding.ActivityHomeBinding
 import com.steelzoo.ownweather.ui.home.recyclerview_shortforecast.ShortForecastAdapter
+import com.steelzoo.ownweather.ui.util.AddressUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import java.util.*
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -116,7 +121,9 @@ class HomeActivity : AppCompatActivity() {
                 if (location != null){
                     runGetWeathers(location)
                     locationRequestLog("getNowWeatherWithCurrentLocation: success")
-                    showSnackbar("success ${location.latitude} ${location.longitude}")
+//                    showSnackbar("success ${location.latitude} ${location.longitude}")
+
+                    setAddressText(location.latitude,location.longitude)
                 } else {
                     locationRequestLog( "getNowWeatherWithCurrentLocation: success but fail")
                     getWeather_LastLocation()
@@ -141,6 +148,8 @@ class HomeActivity : AppCompatActivity() {
             .addOnSuccessListener {location ->
                 runGetWeathers(location)
                 showSnackbar("정확한 위치가 아닐 수 있습니다.")
+
+//                getAddress_Location(location.latitude,location.longitude)
             }
             .addOnFailureListener {
                 showSnackbar("위치정보 호출에 실패했습니다.")
@@ -153,6 +162,30 @@ class HomeActivity : AppCompatActivity() {
     private fun runGetWeathers(location: Location){
         homeViewModel.getNowWeather(location.latitude, location.longitude)
         homeViewModel.getShortForecast(location.latitude, location.longitude)
+    }
+
+//    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun setAddressText(lat: Double, lng: Double){
+        /**
+         * Geocoder.GeocodeListener API 33 부터 사용가능
+         */
+        val geocoder = Geocoder(this,Locale.KOREA)
+        if (Build.VERSION.SDK_INT < 33) {
+            geocoder.getFromLocation(lat, lng, 10)?.let {
+                binding.tvAddress.text = AddressUtil.getAddressStringFromListAddress(it)
+            }
+        } else {
+            geocoder.getFromLocation(lat,lng,10) {
+                /**
+                 * runOnThread에서 실행하지 않으면 Main이 아닌 쓰레드에서 접근하려 해서 ui 버그 발생
+                 */
+                runOnUiThread {
+                    binding.tvAddress.text = AddressUtil.getAddressStringFromListAddress(it)
+                }
+            }
+        }
+
+
     }
 
     private fun createCurrentLocationRequest(): CurrentLocationRequest =
