@@ -55,6 +55,17 @@
                     app:layout_constraintTop_toTopOf="@id/layout_weathercard"
                     tools:text="테스트구 테스트동"/>
 
+                <TextView
+                    android:id="@+id/tv_basetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@{viewmodel.nowWeather.baseTime.substring(0,2) + `시 기준`}"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:text="0000시 기준"/>
+
                 <ImageView
                     android:id="@+id/iv_weather_image"
                     android:layout_width="150dp"

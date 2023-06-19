@@ -23,6 +23,7 @@ fun getNowWeatherDataWithNowAndUltraShort(
     nowWeatherDto: NowWeatherDto,
     ultraShortWeatherDto: ForecastWeatherDto
 ): NowWeatherData{
+    val baseTimeStringBuilder = StringBuilder()
     var dayState = DayState.DAY
     var cloudState = CloudState.SUNNY
     var rainState = RainState.NO
@@ -35,6 +36,9 @@ fun getNowWeatherDataWithNowAndUltraShort(
     var windSpeed = 0.0
 
     nowWeatherDto.response.body.weatherItems.weatherItemList.forEach { weatherDataItem ->
+        if (baseTimeStringBuilder.isEmpty()){
+            baseTimeStringBuilder.append(weatherDataItem.baseTime)
+        }
         when(weatherDataItem.category){
             "T1H" -> {temperature = weatherDataItem.obsrValue}
             "RN1" -> {oneHourPrecipitation = weatherDataItem.obsrValue}
@@ -66,6 +70,7 @@ fun getNowWeatherDataWithNowAndUltraShort(
     }
 
     return NowWeatherData(
+        baseTimeStringBuilder.toString(),
         SkyState(dayState, cloudState, rainState),
         temperature,
         oneHourPrecipitation,
@@ -104,6 +109,7 @@ fun NowWeatherDto.toNowWeatherData(): NowWeatherData {
     }
 
     return NowWeatherData(
+        this.response.body.weatherItems.weatherItemList.first().baseTime,
         SkyState(DayState.DAY,CloudState.SUNNY,RainState.NO),
         temperature,
         oneHourPrecipitation,

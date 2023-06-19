@@ -11,6 +11,7 @@ import com.steelzoo.ownweather.ui.model.WeatherDataUI
 
 fun NowWeatherData.toWeatherDataUI():WeatherDataUI {
     return WeatherDataUI(
+        baseTime,
         skyState.toSkyStateUI(),
         temperature,
         humidity.toInt(),
