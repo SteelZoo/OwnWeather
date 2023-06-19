@@ -147,6 +147,7 @@ class HomeActivity : AppCompatActivity() {
         )
             .addOnSuccessListener {location ->
                 runGetWeathers(location)
+                setAddressText(location.latitude,location.longitude)
                 showSnackbar("정확한 위치가 아닐 수 있습니다.")
 
 //                getAddress_Location(location.latitude,location.longitude)
