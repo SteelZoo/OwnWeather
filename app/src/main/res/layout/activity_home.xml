@@ -44,6 +44,28 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.5" />
 
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:text="테스트구 테스트동"/>
+
+                <TextView
+                    android:id="@+id/tv_basetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@{viewmodel.nowWeather.baseTime.substring(0,2) + `시 기준`}"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:text="0000시 기준"/>
+
                 <ImageView
                     android:id="@+id/iv_weather_image"
                     android:layout_width="150dp"
@@ -102,7 +124,8 @@
                     android:textSize="15sp"
                     android:visibility="@{viewmodel.nowWeather.rain > 0 ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
-                    app:layout_constraintTop_toBottomOf="@id/tv_weather_string_humidity" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_weather_string_humidity"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_weather_precipitation"
@@ -117,7 +140,8 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_precipitation"
                     app:layout_constraintStart_toEndOf="@id/guideline_weather_center"
                     tools:ignore="InOrMmUsage"
-                    tools:text="test" />
+                    tools:text="test"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_weather_string_finedust"

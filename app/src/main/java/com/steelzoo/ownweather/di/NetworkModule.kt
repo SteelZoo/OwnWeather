@@ -22,7 +22,6 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(GO_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-//            .addConverterFactory(ScalarsConverterFactory.create())
             .build()
     }
 
