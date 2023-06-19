@@ -5,7 +5,7 @@ import android.util.Log
 
 object AddressUtil {
 
-    private val addressRegex = Regex("([가-힣]*[시|군|구] [가-힣\\d]*[읍|면|동])")
+    private val addressRegex = Regex(" ([가-힣]+[시|군|구] [가-힣]+\\d*[읍|면|동]) ")
 
 
     fun getAddressStringFromListAddress(addressList: List<Address>): String{
