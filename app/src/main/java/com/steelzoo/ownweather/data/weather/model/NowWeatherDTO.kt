@@ -1,7 +1,12 @@
 package com.steelzoo.ownweather.data.weather.model
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
+/**
+ * This class is used in both network(retrofit) and local(room)
+ */
+@Entity(tableName = "now_weather_table", primaryKeys = ["baseDate","baseTime","category"])
 data class NowWeatherDtoItem(
     val baseDate: String,
     val baseTime: String,
