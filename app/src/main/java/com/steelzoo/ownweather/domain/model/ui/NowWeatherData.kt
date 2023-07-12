@@ -1,4 +1,6 @@
-package com.steelzoo.ownweather.domain.model
+package com.steelzoo.ownweather.domain.model.ui
+
+import com.steelzoo.ownweather.domain.model.SkyState
 
 data class NowWeatherData(
     val baseTime: String,
@@ -11,4 +13,3 @@ data class NowWeatherData(
     val windDirection: Double,
     val windSpeed: Double
 )
-

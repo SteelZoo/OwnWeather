@@ -3,6 +3,8 @@ package com.steelzoo.ownweather.data
 import com.steelzoo.ownweather.data.weather.model.ForecastWeatherDto
 import com.steelzoo.ownweather.data.weather.model.NowWeatherDto
 import com.steelzoo.ownweather.domain.model.*
+import com.steelzoo.ownweather.domain.model.data.NowCastData
+import com.steelzoo.ownweather.domain.model.data.ShortForecastData
 
 
 /**
@@ -22,7 +24,7 @@ import com.steelzoo.ownweather.domain.model.*
 fun getNowWeatherDataWithNowAndUltraShort(
     nowWeatherDto: NowWeatherDto,
     ultraShortWeatherDto: ForecastWeatherDto
-): NowWeatherData{
+): NowCastData {
     val baseTimeStringBuilder = StringBuilder()
     var dayState = DayState.DAY
     var cloudState = CloudState.SUNNY
@@ -69,9 +71,8 @@ fun getNowWeatherDataWithNowAndUltraShort(
         }
     }
 
-    return NowWeatherData(
+    return NowCastData(
         baseTimeStringBuilder.toString(),
-        SkyState(dayState, cloudState, rainState),
         temperature,
         oneHourPrecipitation,
         eastWestWindComponent,
@@ -82,10 +83,8 @@ fun getNowWeatherDataWithNowAndUltraShort(
     )
 }
 
-/**
- * @deprecated
- */
-fun NowWeatherDto.toNowWeatherData(): NowWeatherData {
+
+fun NowWeatherDto.toNowCastData(): NowCastData {
 
     var temperature = 0.0
     var oneHourPrecipitation = 0.0
@@ -108,9 +107,8 @@ fun NowWeatherDto.toNowWeatherData(): NowWeatherData {
         }
     }
 
-    return NowWeatherData(
+    return NowCastData(
         this.response.body.weatherItems.weatherItemList.first().baseTime,
-        SkyState(DayState.DAY,CloudState.SUNNY,RainState.NO),
         temperature,
         oneHourPrecipitation,
         eastWestWindComponent,
