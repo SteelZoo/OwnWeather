@@ -1,9 +1,9 @@
 package com.steelzoo.ownweather.data.weather
 
-import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
+import java.util.*
 
-@SuppressLint("SimpleDateFormat")
+
 object WeatherUtil {
 
     enum class BaseTimeType(val baseMinute: Int) {
@@ -15,9 +15,9 @@ object WeatherUtil {
     const val HOUR_TO_MILLIS = 3600000
     const val MINUTE_TO_MILLIS = 60000
 
-    private val baseDateFormat: SimpleDateFormat = SimpleDateFormat("yyyyMMdd")
-    val hourDateFormat: SimpleDateFormat = SimpleDateFormat("HH00")
-    private val minuteDateFormat: SimpleDateFormat = SimpleDateFormat("00mm")
+    private val baseDateFormat: SimpleDateFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
+    val hourDateFormat: SimpleDateFormat = SimpleDateFormat("HH00", Locale.KOREA)
+    private val minuteDateFormat: SimpleDateFormat = SimpleDateFormat("00mm", Locale.KOREA)
 
     /**
      * 경위도 좌표계를 기상청 XY 좌표계로 변경해주는 메소드

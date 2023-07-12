@@ -1,4 +1,6 @@
-package com.steelzoo.ownweather.domain.model
+package com.steelzoo.ownweather.domain.model.data
+
+import com.steelzoo.ownweather.domain.model.SkyState
 
 data class ShortForecastData (
     val date: String,

@@ -1,6 +1,9 @@
 package com.steelzoo.ownweather.ui
 
 import com.steelzoo.ownweather.domain.model.*
+import com.steelzoo.ownweather.domain.model.data.NowCastData
+import com.steelzoo.ownweather.domain.model.data.ShortForecastData
+import com.steelzoo.ownweather.domain.model.ui.NowWeatherData
 import com.steelzoo.ownweather.ui.model.ShortForecastItem
 import com.steelzoo.ownweather.ui.model.SkyStateUI
 import com.steelzoo.ownweather.ui.model.WeatherDataUI

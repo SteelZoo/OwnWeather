@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
 
     fun getNowWeather(lat: Double, lng: Double){
         viewModelScope.launch {
-            getNowWeatherUseCase(lat, lng)?.let {nowWeatherData ->
+            getNowWeatherUseCase(lat, lng, System.currentTimeMillis())?.let {nowWeatherData ->
                 _nowWeather.postValue(nowWeatherData.toWeatherDataUI().also {
                     Log.d("FORECAST", "getNowWeather: $it")
                 })
@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     fun getShortForecast(lat: Double, lng: Double){
         viewModelScope.launch {
             Log.d("FORECAST", "getShortForecast: start")
-            getShortForecastUseCase(lat, lng)?.let {shortForecastDataList ->
+            getShortForecastUseCase(lat, lng, System.currentTimeMillis())?.let {shortForecastDataList ->
                 _shortForecast.postValue(shortForecastDataList.toShortForecastItemList().also {
                     Log.d(
                         "FORECAST",
