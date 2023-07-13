@@ -39,6 +39,7 @@ class WeatherDataRepositoryImpl @Inject constructor(
         ).toShortForecastDataList()
     }
 
+//TODO WeatherUtil.BaseTimeType NowCast->SHORT_FORECAST
     override suspend fun getShortForecastData(
         lat: Double,
         lng: Double,
