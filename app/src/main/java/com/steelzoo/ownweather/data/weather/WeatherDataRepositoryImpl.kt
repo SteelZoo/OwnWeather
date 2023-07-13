@@ -39,7 +39,6 @@ class WeatherDataRepositoryImpl @Inject constructor(
         ).toShortForecastDataList()
     }
 
-//TODO WeatherUtil.BaseTimeType NowCast->SHORT_FORECAST
     override suspend fun getShortForecastData(
         lat: Double,
         lng: Double,
@@ -47,8 +46,8 @@ class WeatherDataRepositoryImpl @Inject constructor(
     ): List<ShortForecastData> {
         val nxnyMap = WeatherUtil.convertLatLngToGridXY(lat, lng)
         return remoteSource.getShortForecastData(
-            WeatherUtil.getBaseDate(currentTime, WeatherUtil.BaseTimeType.NOWCAST),
-            WeatherUtil.getBaseTime(currentTime, WeatherUtil.BaseTimeType.NOWCAST),
+            WeatherUtil.getBaseDate(currentTime, WeatherUtil.BaseTimeType.SHORT_FORECAST),
+            WeatherUtil.getBaseTime(currentTime, WeatherUtil.BaseTimeType.SHORT_FORECAST),
             nxnyMap["nx"]!!,
             nxnyMap["ny"]!!
         ).toShortForecastDataList()
