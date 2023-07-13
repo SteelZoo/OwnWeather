@@ -26,7 +26,7 @@ abstract class WeatherDAO {
      * Use saveUltraShortWeatherData
      */
     @Insert
-    abstract fun insertUltraShortWeather(ultraShortWeatherData: List<UltraShortForecastEntity>)
+    protected abstract fun insertUltraShortWeather(ultraShortWeatherData: List<UltraShortForecastEntity>)
 
     @Query("DELETE FROM ultra_short_weather_table")
     abstract fun deleteAllUltraShortWeatherData()
@@ -50,7 +50,7 @@ abstract class WeatherDAO {
      * Use saveShortWeatherData
      */
     @Insert
-    abstract fun insertShortWeather(shortWeatherData: List<ShortForecastEntity>)
+    protected abstract fun insertShortWeather(shortWeatherData: List<ShortForecastEntity>)
 
     @Query("DELETE FROM short_weather_table")
     abstract fun deleteAllShortWeatherData()
@@ -75,7 +75,7 @@ abstract class WeatherDAO {
      * Use saveNowWeatherData
      */
     @Insert
-    abstract fun insertNowWeather(nowWeatherData: List<NowWeatherDtoItem>)
+    protected abstract fun insertNowWeather(nowWeatherData: List<NowWeatherDtoItem>)
 
     @Query("DELETE FROM now_weather_table")
     abstract fun deleteAllNowWeatherData()
