@@ -8,14 +8,17 @@ import com.steelzoo.ownweather.data.weather.model.UltraShortForecastEntity
 @Dao
 abstract class WeatherDAO {
 
+    /*
+    * UltraShort Forecast Table
+    * */
     @Query("SELECT * FROM ultra_short_weather_table")
-    abstract fun getUltraShortWeatherData(): List<UltraShortForecastEntity>
+    abstract suspend fun getUltraShortWeatherData(): List<UltraShortForecastEntity>
 
     /**
      * Delete all past data and insert only new data
      */
     @Transaction
-    fun saveUltraShortWeatherData(ultraShortWeatherData: List<UltraShortForecastEntity>) {
+    suspend fun saveUltraShortWeatherData(ultraShortWeatherData: List<UltraShortForecastEntity>) {
         deleteAllUltraShortWeatherData()
         insertUltraShortWeather(ultraShortWeatherData)
     }
@@ -26,20 +29,23 @@ abstract class WeatherDAO {
      * Use saveUltraShortWeatherData
      */
     @Insert
-    protected abstract fun insertUltraShortWeather(ultraShortWeatherData: List<UltraShortForecastEntity>)
+    protected abstract suspend fun insertUltraShortWeather(ultraShortWeatherData: List<UltraShortForecastEntity>)
 
     @Query("DELETE FROM ultra_short_weather_table")
-    abstract fun deleteAllUltraShortWeatherData()
+    abstract suspend fun deleteAllUltraShortWeatherData()
 
 
+    /*
+    * Short Forecast Table
+    * */
     @Query("SELECT * FROM short_weather_table")
-    abstract fun getShortWeatherData(): List<ShortForecastEntity>
+    abstract suspend fun getShortWeatherData(): List<ShortForecastEntity>
 
     /**
      * Delete all past data and insert only new data
      */
     @Transaction
-    fun saveShortWeatherData(shortWeatherData: List<ShortForecastEntity>) {
+    suspend fun saveShortWeatherData(shortWeatherData: List<ShortForecastEntity>) {
         deleteAllShortWeatherData()
         insertShortWeather(shortWeatherData)
     }
@@ -50,21 +56,23 @@ abstract class WeatherDAO {
      * Use saveShortWeatherData
      */
     @Insert
-    protected abstract fun insertShortWeather(shortWeatherData: List<ShortForecastEntity>)
+    protected abstract suspend fun insertShortWeather(shortWeatherData: List<ShortForecastEntity>)
 
     @Query("DELETE FROM short_weather_table")
-    abstract fun deleteAllShortWeatherData()
+    abstract suspend fun deleteAllShortWeatherData()
 
 
-
+    /*
+    * Now cast Table
+    * */
     @Query("SELECT * FROM now_weather_table")
-    abstract fun getNowWeatherData(): List<NowWeatherDtoItem>
+    abstract suspend fun getNowWeatherData(): NowWeatherDtoItem
 
     /**
      * Delete all past data and insert only new data
      */
     @Transaction
-    fun saveNowWeatherData(nowWeatherData: List<NowWeatherDtoItem>) {
+    suspend fun saveNowWeatherData(nowWeatherData: NowWeatherDtoItem) {
         deleteAllNowWeatherData()
         insertNowWeather(nowWeatherData)
     }
@@ -75,8 +83,8 @@ abstract class WeatherDAO {
      * Use saveNowWeatherData
      */
     @Insert
-    protected abstract fun insertNowWeather(nowWeatherData: List<NowWeatherDtoItem>)
+    protected abstract suspend fun insertNowWeather(nowWeatherData: NowWeatherDtoItem)
 
     @Query("DELETE FROM now_weather_table")
-    abstract fun deleteAllNowWeatherData()
+    abstract suspend fun deleteAllNowWeatherData()
 }
