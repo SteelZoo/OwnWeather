@@ -2,7 +2,7 @@ package com.steelzoo.ownweather.data.weather.model
 
 import androidx.room.Entity
 
-@Entity(tableName = "ultra_short_weather_table", primaryKeys = ["baseDate", "baseTime", "category"])
+@Entity(tableName = "ultra_short_weather_table", primaryKeys = ["fcstDate", "fcstTime", "category"])
 data class UltraShortForecastEntity(
     val baseDate: String,
     val baseTime: String,
@@ -15,7 +15,7 @@ data class UltraShortForecastEntity(
 )
 
 
-@Entity(tableName = "short_weather_table", primaryKeys = ["baseDate", "baseTime", "category"])
+@Entity(tableName = "short_weather_table", primaryKeys = ["fcstDate", "fcstTime", "category"])
 data class ShortForecastEntity(
     val baseDate: String,
     val baseTime: String,
