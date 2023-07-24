@@ -2,6 +2,7 @@ package com.steelzoo.ownweather.data
 
 import com.steelzoo.ownweather.data.weather.model.ForecastWeatherDto
 import com.steelzoo.ownweather.data.weather.model.NowWeatherDto
+import com.steelzoo.ownweather.data.weather.model.NowWeatherDtoItem
 import com.steelzoo.ownweather.domain.model.*
 import com.steelzoo.ownweather.domain.model.data.NowCastData
 import com.steelzoo.ownweather.domain.model.data.ShortForecastData
@@ -84,7 +85,7 @@ fun getNowWeatherDataWithNowAndUltraShort(
 }
 
 
-fun NowWeatherDto.toNowCastData(): NowCastData {
+fun List<NowWeatherDtoItem>.toNowCastData(): NowCastData {
 
     var temperature = 0.0
     var oneHourPrecipitation = 0.0
@@ -94,7 +95,7 @@ fun NowWeatherDto.toNowCastData(): NowCastData {
     var windDirection = 0.0
     var windSpeed = 0.0
 
-    this.response.body.weatherItems.weatherItemList.forEach { weatherDataItem ->
+    this.forEach { weatherDataItem ->
         when(weatherDataItem.category){
             "T1H" -> {temperature = weatherDataItem.obsrValue}
             "RN1" -> {oneHourPrecipitation = weatherDataItem.obsrValue}
@@ -108,7 +109,7 @@ fun NowWeatherDto.toNowCastData(): NowCastData {
     }
 
     return NowCastData(
-        this.response.body.weatherItems.weatherItemList.first().baseTime,
+        this.first().baseTime,
         temperature,
         oneHourPrecipitation,
         eastWestWindComponent,
