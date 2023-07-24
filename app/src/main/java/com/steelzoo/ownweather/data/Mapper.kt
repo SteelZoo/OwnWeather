@@ -183,20 +183,4 @@ fun ForecastWeatherDto.toShortForecastDataList() : List<ShortForecastData>{
         }
 
     return resultList
-
-//        .sortedWith { o1, o2 ->
-//            when {
-//                o1.fcstDate.toInt() > o2.fcstDate.toInt() -> 1
-//                o1.fcstDate.toInt() == o2.fcstDate.toInt() -> {
-//                    if (o1.fcstTime.toInt() < o2.fcstTime.toInt()) -1
-//                    else if (o1.fcstTime.toInt() > o2.fcstTime.toInt()) 1
-//                    else 0
-//                }
-//                o1.fcstDate.toInt() < o2.fcstDate.toInt() -> -1
-//                else -> 0
-//            }
-//        }
-
-
-
 }
