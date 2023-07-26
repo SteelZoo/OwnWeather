@@ -1,8 +1,6 @@
 package com.steelzoo.ownweather.data
 
-import com.steelzoo.ownweather.data.weather.model.ForecastWeatherDto
-import com.steelzoo.ownweather.data.weather.model.NowWeatherDto
-import com.steelzoo.ownweather.data.weather.model.NowWeatherDtoItem
+import com.steelzoo.ownweather.data.weather.model.*
 import com.steelzoo.ownweather.domain.model.*
 import com.steelzoo.ownweather.domain.model.data.NowCastData
 import com.steelzoo.ownweather.domain.model.data.ShortForecastData
@@ -184,3 +182,4 @@ fun ForecastWeatherDto.toShortForecastDataList() : List<ShortForecastData>{
 
     return resultList
 }
+
