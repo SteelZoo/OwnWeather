@@ -118,6 +118,10 @@ fun List<NowWeatherDtoItem>.toNowCastData(): NowCastData {
     )
 }
 
+/**
+ * @deprecated
+ * use List<ForecastWeatherDataModel>.toShortForecastDataList()
+ */
 fun ForecastWeatherDto.toShortForecastDataList() : List<ShortForecastData>{
 
     val resultList = mutableListOf<ShortForecastData>()
@@ -183,3 +187,53 @@ fun ForecastWeatherDto.toShortForecastDataList() : List<ShortForecastData>{
     return resultList
 }
 
+fun List<ForecastWeatherDataModel>.toShortForecastDataList(): List<ShortForecastData>{
+    return this
+        .groupBy {
+        it.fcstDate + it.fcstTime
+        }
+        .toSortedMap()
+        .values
+        .map { dateTimeList ->
+            var date = dateTimeList[0].fcstDate
+            var time = dateTimeList[0].fcstTime
+            var dayState = DayState.DAY
+            var cloudState = CloudState.SUNNY
+            var rainState = RainState.NO
+            var temperature = 0
+            var humidity = 0
+            var precipitation = ""
+            var probability = -1
+
+            dateTimeList.forEach{ item ->
+                when(item.category){
+                    "T1H","TMP" -> {temperature = item.fcstValue.toInt()}
+                    "REH" -> {humidity = item.fcstValue.toInt()}
+                    "RN1","PCP" -> {precipitation = item.fcstValue}
+                    "POP" -> {probability = item.fcstValue.toInt()}
+                    "SKY" -> {
+                        when(item.fcstValue.toInt()) {
+                            1,2 -> {cloudState = CloudState.SUNNY}
+                            3 -> {cloudState = CloudState.CLOUD_SUNNY}
+                            4 -> {cloudState = CloudState.CLOUDY}
+                        }
+                    }
+                    "PTY" -> {
+                        when(item.fcstValue.toInt()){
+                            0 -> {rainState = RainState.NO}
+                            1,5 -> {rainState = RainState.RAIN}
+                            2,6 -> {rainState = RainState.RAIN_SNOW}
+                            3,7 -> {rainState = RainState.SNOW}
+                        }
+                    }
+                }
+            }
+            ShortForecastData(
+                date,
+                time,
+                SkyState(dayState, cloudState, rainState),
+                temperature, humidity, precipitation, probability
+            )
+        }
+
+}
