@@ -1,6 +1,5 @@
 package com.steelzoo.ownweather.domain.usecase
 
-import com.steelzoo.ownweather.data.toShortForecastDataList
 import com.steelzoo.ownweather.data.weather.WeatherUtil
 import com.steelzoo.ownweather.domain.model.data.ShortForecastData
 import com.steelzoo.ownweather.domain.repositoryinterface.WeatherDataRepository
