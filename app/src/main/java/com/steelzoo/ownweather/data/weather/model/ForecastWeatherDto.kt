@@ -3,15 +3,15 @@ package com.steelzoo.ownweather.data.weather.model
 import com.google.gson.annotations.SerializedName
 
 data class ForecastWeatherDtoItem(
-    val baseDate: String,
-    val baseTime: String,
-    val category: String,
-    val nx: Int,
-    val ny: Int,
-    val fcstDate: String,
-    val fcstTime: String,
-    val fcstValue: String,
-)
+    override val baseDate: String,
+    override val baseTime: String,
+    override val category: String,
+    override val nx: Int,
+    override val ny: Int,
+    override val fcstDate: String,
+    override val fcstTime: String,
+    override val fcstValue: String,
+) : ForecastWeatherDataModel
 
 data class ForecastWeatherDtoItemList(
     @SerializedName("item")

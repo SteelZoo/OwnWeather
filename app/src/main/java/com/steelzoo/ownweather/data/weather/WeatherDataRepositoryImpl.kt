@@ -69,7 +69,9 @@ class WeatherDataRepositoryImpl @Inject constructor(
             WeatherUtil.getBaseTime(currentTime, WeatherUtil.BaseTimeType.ULTRASHORT_FORECAST),
             nxnyMap["nx"]!!,
             nxnyMap["ny"]!!
-        ).toShortForecastDataList()
+        ).response.body.weatherItems.weatherItemList.toShortForecastDataList().also {
+            Log.d("LIST_MAPPER_TEST", it.toString())
+        }
     }
 
     override suspend fun getShortForecastData(
@@ -83,6 +85,8 @@ class WeatherDataRepositoryImpl @Inject constructor(
             WeatherUtil.getBaseTime(currentTime, WeatherUtil.BaseTimeType.SHORT_FORECAST),
             nxnyMap["nx"]!!,
             nxnyMap["ny"]!!
-        ).toShortForecastDataList()
+        ).response.body.weatherItems.weatherItemList.toShortForecastDataList().also {
+            Log.d("LIST_MAPPER_TEST", it.toString())
+        }
     }
 }
