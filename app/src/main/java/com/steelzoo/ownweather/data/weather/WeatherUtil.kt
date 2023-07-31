@@ -91,23 +91,18 @@ object WeatherUtil {
      * 단기 예보는 0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회) 각 시간 10분 후
      */
     fun getBaseTime(currentTimeMillis: Long, baseTimeType: BaseTimeType): String {
-
-        val resultBaseMinuteString = StringBuilder()
-
-        when(baseTimeType){
+        return when(baseTimeType){
             BaseTimeType.NOWCAST,BaseTimeType.ULTRASHORT_FORECAST -> {
                 if (minuteDateFormat.format(currentTimeMillis).toInt() < baseTimeType.baseMinute) {
-                    resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS))
+                    hourDateFormat.format(currentTimeMillis - HOUR_TO_MILLIS)
                 } else {
-                    resultBaseMinuteString.append(hourDateFormat.format(currentTimeMillis))
+                    hourDateFormat.format(currentTimeMillis)
                 }
             }
             BaseTimeType.SHORT_FORECAST -> {
                 val baseTimeMillis = ((((currentTimeMillis + HOUR_TO_MILLIS*24 - (10 * MINUTE_TO_MILLIS) + HOUR_TO_MILLIS) / (3 * HOUR_TO_MILLIS)) * (3 * HOUR_TO_MILLIS)) - HOUR_TO_MILLIS)
-                resultBaseMinuteString.append(hourDateFormat.format(baseTimeMillis))
+                (hourDateFormat.format(baseTimeMillis))
             }
         }
-
-        return resultBaseMinuteString.toString()
     }
 }
