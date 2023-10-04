@@ -16,6 +16,8 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
@@ -55,6 +57,7 @@ class HomeActivity : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         binding.rvShortforecast.adapter = shortForecastAdapter
+        binding.rvShortforecast.addItemDecoration(DividerItemDecoration(baseContext,LinearLayoutManager.HORIZONTAL))
 
         setObserveLiveData()
 
