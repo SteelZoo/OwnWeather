@@ -16,10 +16,15 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.steelzoo.ownweather.databinding.ActivityHomeBinding
+import com.steelzoo.ownweather.ui.home.fragment.NowcastFragment
+import com.steelzoo.ownweather.ui.home.fragment.ShortForecastFragment
+import com.steelzoo.ownweather.ui.home.fragment.WeatherFragmentAdapter
 import com.steelzoo.ownweather.ui.home.recyclerview_shortforecast.ShortForecastAdapter
 import com.steelzoo.ownweather.ui.util.AddressUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +45,9 @@ class HomeActivity : AppCompatActivity() {
     private val requestPermission = initPermissionActivityResultLauncher()
 
     private val shortForecastAdapter = ShortForecastAdapter()
+    private val weatherFragmentAdapter = WeatherFragmentAdapter(this
+        , listOf(NowcastFragment(),ShortForecastFragment()
+    ))
 
     private fun showSnackbar(message: String) = Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).show()
     private fun locationRequestLog(message: String) = Log.d("REQUEST_LOCATION",message)
@@ -54,7 +62,9 @@ class HomeActivity : AppCompatActivity() {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        binding.rvShortforecast.adapter = shortForecastAdapter
+//        binding.rvShortforecast.adapter = shortForecastAdapter
+//        binding.rvShortforecast.addItemDecoration(DividerItemDecoration(baseContext,LinearLayoutManager.HORIZONTAL))
+        binding.viewpagerWeathercast.adapter = weatherFragmentAdapter
 
         setObserveLiveData()
 
@@ -185,8 +195,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     private fun createCurrentLocationRequest(): CurrentLocationRequest =

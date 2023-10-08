@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.home.fragment.NowcastFragment">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.steelzoo.ownweather.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_weathercard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@color/black"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp"
+            app:layout_constraintDimensionRatio="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_weathercard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_weather_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/tv_basetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@{viewmodel.nowWeather.baseTime.substring(0,2) + `시 기준`}"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:text="0000시 기준" />
+
+                <ImageView
+                    android:id="@+id/iv_weather_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:drawableSrc="@{viewmodel.nowWeather.skyState.drawableImage}"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                    app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
+                    tools:src="@drawable/icon_weather_night" />
+
+                <TextView
+                    android:id="@+id/tv_weather_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Double.toString(viewmodel.nowWeather.temperature)}"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_weather_image"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                    app:layout_constraintStart_toStartOf="@id/layout_weathercard"
+                    tools:text="30.5" />
+
+                <TextView
+                    android:id="@+id/tv_weather_string_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:text="@string/humidity"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
+                    app:layout_constraintTop_toBottomOf="@id/iv_weather_image" />
+
+                <TextView
+                    android:id="@+id/tv_weather_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@{Integer.toString(viewmodel.nowWeather.humidity)+`%`}"
+                    android:textColor="@color/blue_humidity"
+                    android:textSize="15sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_humidity"
+                    app:layout_constraintStart_toEndOf="@id/guideline_weather_center"
+                    tools:text="test" />
+
+
+                <TextView
+                    android:id="@+id/tv_weather_string_precipitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="3dp"
+                    android:text="@string/precipitation"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="15sp"
+                    android:visibility="@{viewmodel.nowWeather.rain > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
+                    app:layout_constraintTop_toBottomOf="@id/tv_weather_string_humidity"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_weather_precipitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@{viewmodel.nowWeather.rain+`mm`}"
+                    android:textColor="@color/blue_rain"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="@{viewmodel.nowWeather.rain > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_precipitation"
+                    app:layout_constraintStart_toEndOf="@id/guideline_weather_center"
+                    tools:ignore="InOrMmUsage"
+                    tools:text="test"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_weather_string_finedust"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/fine_dust"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/btn_weather_hate"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_weather_center"
+                    app:layout_constraintStart_toStartOf="@id/layout_weathercard" />
+
+                <TextView
+                    android:id="@+id/tv_weather_string_ultrafinedust"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ultrafine_dust"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="15sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_weather_string_finedust"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard"
+                    app:layout_constraintStart_toEndOf="@id/guideline_weather_center" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_weather_hate"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/icon_hate_ripple"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_weathercard"
+                    app:layout_constraintStart_toStartOf="@id/layout_weathercard" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_weather_like"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/icon_like_ripple"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_weathercard"
+                    app:layout_constraintEnd_toEndOf="@id/layout_weathercard" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
