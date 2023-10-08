@@ -22,6 +22,8 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.steelzoo.ownweather.databinding.ActivityHomeBinding
+import com.steelzoo.ownweather.ui.home.fragment.NowcastFragment
+import com.steelzoo.ownweather.ui.home.fragment.ShortForecastFragment
 import com.steelzoo.ownweather.ui.home.fragment.WeatherFragmentAdapter
 import com.steelzoo.ownweather.ui.home.recyclerview_shortforecast.ShortForecastAdapter
 import com.steelzoo.ownweather.ui.util.AddressUtil
@@ -44,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val shortForecastAdapter = ShortForecastAdapter()
     private val weatherFragmentAdapter = WeatherFragmentAdapter(this
-        , listOf(
+        , listOf(NowcastFragment(),ShortForecastFragment()
     ))
 
     private fun showSnackbar(message: String) = Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).show()
@@ -62,6 +64,7 @@ class HomeActivity : AppCompatActivity() {
 
 //        binding.rvShortforecast.adapter = shortForecastAdapter
 //        binding.rvShortforecast.addItemDecoration(DividerItemDecoration(baseContext,LinearLayoutManager.HORIZONTAL))
+        binding.viewpagerWeathercast.adapter = weatherFragmentAdapter
 
         setObserveLiveData()
 
@@ -180,7 +183,7 @@ class HomeActivity : AppCompatActivity() {
         val geocoder = Geocoder(this,Locale.KOREA)
         if (Build.VERSION.SDK_INT < 33) {
             geocoder.getFromLocation(lat, lng, 10)?.let {
-//                binding.tvAddress.text = AddressUtil.getAddressStringFromListAddress(it)
+                binding.tvAddress.text = AddressUtil.getAddressStringFromListAddress(it)
             }
         } else {
             geocoder.getFromLocation(lat,lng,10) {
@@ -188,7 +191,7 @@ class HomeActivity : AppCompatActivity() {
                  * runOnThread에서 실행하지 않으면 Main이 아닌 쓰레드에서 접근하려 해서 ui 버그 발생
                  */
                 runOnUiThread {
-//                    binding.tvAddress.text = AddressUtil.getAddressStringFromListAddress(it)
+                    binding.tvAddress.text = AddressUtil.getAddressStringFromListAddress(it)
                 }
             }
         }

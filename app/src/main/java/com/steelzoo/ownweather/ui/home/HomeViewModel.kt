@@ -31,6 +31,8 @@ class HomeViewModel @Inject constructor(
     val shortForecast: LiveData<List<ShortForecastItem>>
         get() = _shortForecast
 
+
+
     fun getNowWeather(lat: Double, lng: Double){
         viewModelScope.launch {
             getNowWeatherUseCase(lat, lng, System.currentTimeMillis())?.let {nowWeatherData ->

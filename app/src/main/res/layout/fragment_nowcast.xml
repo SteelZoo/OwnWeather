@@ -20,12 +20,11 @@
             android:id="@+id/cv_weathercard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_margin="20dp"
             android:background="@color/black"
             app:cardCornerRadius="15dp"
             app:cardElevation="10dp"
-            app:layout_constraintDimensionRatio="0.8"
+            app:layout_constraintDimensionRatio="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,17 +41,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.5" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="?attr/colorOnSecondary"
-                    app:layout_constraintStart_toStartOf="@id/layout_weathercard"
-                    app:layout_constraintTop_toTopOf="@id/layout_weathercard"
-                    tools:text="테스트구 테스트동" />
 
                 <TextView
                     android:id="@+id/tv_basetime"
